@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Creator</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: rgb(161, 111, 180);
+        }
+
+        label {
+            display: block;
+            margin-top: 30px;
+            margin-bottom: 5px;
+        }
+
+        input {
+            display: block;
+        }
+
+        .main {
+            display: grid;
+            grid-gap: 30px;
+            padding: 30px;
+            grid-template-columns: 300px 1fr;
+        }
+
+        #controllers, code {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: rgb(174, 153, 182);
+            padding: 1rem;
+            box-shadow: 2px 2px 2px 0 rgba(0,0,0,.2);
+        }
+
+        code {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        code span {
+            display: block;
+            margin-bottom: .5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="main">
+        <form action="" id="controllers">
+            <label for="text">text</label>
+            <input type="text" id="text" name="text">
+            <label for="color">color</label>
+            <input type="color" id="color" name="color">
+            <label for="backgroundColor">Background-color</label>
+            <input type="color" id="backgroundColor" name="backgroundColor">
+            <label for="height">Height</label>
+            <input type="range" id="height" name="height" min="0" max="200">
+            <label for="width">Width</label>
+            <input type="range" id="width" name="width" min="200" max="600">
+            <label for="height">Border</label>
+            <input type="text" id="border" name="border">
+            <label for="height">Border-radius</label>
+            <input type="range" id="borderRadius" name="borderRadius" min="0" max="20">
+            <select name="fontFamily" id="fontFamily">
+                <option value="Arial">Arial</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Monospace">Monospace</option>
+            </select>
+            <label for="fontSize">Font-size</label>
+            <input type="number" id="fontSize" name="fontSize">
+        </form>
+        <section class="resultado">
+            <h3>Button</h3>
+            <button class="btn">Button</button>
+            <h3>CSS:</h3>
+            <pre>
+                <code>
+                    
+                </code>
+            </pre>
+        </section>
+
+    </section>
+
+    <script>
+        const controles = document.getElementById('controllers')
+        const cssTexto = document.querySelector('code')
+        const btn = document.querySelector('button')
+
+        const styleButton = {
+            element: btn,
+            backgroundColor(value) {
+                this.element.style.backgroundColor = value
+            },
+
+            height(value) {
+                this.element.style.height = value + 'px';
+            },
+
+            width(value) {
+                this.element.style.width = value + 'px';
+            },
+
+            fontSize(value) {
+                this.element.style.fontSize = value + 'px';
+            },
+
+            fontFamily(value) {
+                this.element.style.fontFamily = value;
+            },
+
+            border(value) {
+                this.element.style.border = value;
+            },
+
+            borderRadius(value) {
+                this.element.style.borderRadius = value + 'px';
+            },
+
+            text(value) {
+                this.element.innerText = value;
+            },
+
+            color(value) {
+                this.element.style.color = value;
+            },
+
+        }
+
+
+        const handdleChange = (event) => {
+            const name = event.target.name;
+            const value = event.target.value;
+            styleButton[name](value);
+            cssChange()
+        }
+
+        const cssChange = (event) => {
+            cssTexto.innerHTML = '<span>' + btn.style.cssText.split('; ').join(';</span><span>');
+        }
+
+        controles.addEventListener('change',handdleChange)
+
+
+    </script>
+</body>
+
+</html>
